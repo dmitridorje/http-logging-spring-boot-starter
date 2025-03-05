@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'maven-publish'
 }
 
 group = 'ru.bakhtin.logging'
@@ -18,11 +19,28 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter:3.4.3'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.3'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.4.3'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.4.3'
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor:3.4.3'
+
+    implementation 'org.aspectj:aspectjweaver:1.9.9.1'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
+
+            groupId = 'ru.bakhtin.logging'
+            artifactId = 'http-logging-starter'
+            version = '0.0.1-SNAPSHOT'
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
 }
