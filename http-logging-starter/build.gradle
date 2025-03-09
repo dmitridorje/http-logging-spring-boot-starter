@@ -20,13 +20,9 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:3.4.3'
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.3'
-    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.4.3'
+    implementation 'org.aspectj:aspectjweaver:1.9.9.1'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.4.3'
-    compileOnly 'org.springframework.boot:spring-boot-configuration-processor:3.4.3'
-
-    implementation 'org.aspectj:aspectjweaver:1.9.9.1'
 }
 
 publishing {
@@ -43,4 +39,11 @@ publishing {
     repositories {
         mavenLocal()
     }
+}
+
+tasks.named('bootJar') {
+    enabled = false
+}
+tasks.named('jar') {
+    enabled = true
 }
